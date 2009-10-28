@@ -1,0 +1,46 @@
+# -*- encoding: UTF-8 -*-
+def root_path
+  File.dirname(File.expand_path(__FILE__)).untaint
+end
+
+# 各種パラメータ設定
+def config
+  {
+    :title => 'The Bilbo Diary',
+    :description => 'Please set config[:description] in bilborc',
+    :dir   => {
+      :entries => "#{root_path}/data_sample",
+      :views   => "#{root_path}/views",
+      #:plugins => "#{root_path}/config/plugins",
+      :plugins => "#{root_path}/plugins",
+    },
+    :limit => 5,
+    :css   => '/stylesheets/bilbo.css',
+  }
+end
+
+# 記事のコンパイラを設定
+def add_compilers
+  # HikiDocを登録
+  require 'misc/hikidoc.rb'
+  Entry.add_compiler('.txt') {|entry|
+    HikiDoc.to_html(entry.body, :level => 2)
+  }
+
+  # mixiスタイルを登録
+  require 'misc/mixistyle.rb'
+  Entry.add_compiler('.mixi') {|entry|
+    MixiStyle.to_html(entry.body)
+  }
+
+  # 拡張子「.src」のソースをそのまま表示する例
+  Entry.add_compiler('.src') {|entry|
+    "<h2>#{h entry.filename}</h2><pre>#{h entry.body}</pre>"
+  }
+end
+
+def setup_environment
+  $LOAD_PATH.unshift File.dirname(__FILE__) + '/lib'
+  load 'bilbo.rb' # todo: dev
+  add_compilers
+end

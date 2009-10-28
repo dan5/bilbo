@@ -1,0 +1,38 @@
+![開発ログ]hikidoc.rbをちょっと書き換えた
+
+ [[about]]
+ WikiName
+
+上記のリンクを?aboutに飛ばすように。→ 
+[[about]]
+WikiName
+
+<<<
+Index: misc/hikidoc.rb
+===================================================================
+--- misc/hikidoc.rb     (リビジョン 1576)
++++ misc/hikidoc.rb     (作業コピー)
+@@ -450,7 +450,7 @@
+       if can_image_link?(link)
+         @output.image_hyperlink(fixed_link)
+       else
+-        @output.hyperlink(fixed_link, @output.text(link))
++        @output.hyperlink_namedpage(fixed_link, @output.text(link))
+       end
+     end
+   end
+@@ -699,8 +699,12 @@
+       %Q(<a href="#{escape_html_param(uri)}">#{title}</a>)
+     end
+
++    def hyperlink_namedpage(uri, title)
++      %Q(<a href="?#{escape_html_param(uri)}">#{title}</a>)
++    end
++
+     def wiki_name(name)
+-      hyperlink(name, text(name))
++      hyperlink_namedpage(name, text(name))
+     end
+
+     def image_hyperlink(uri, alt = nil)
+>>>
