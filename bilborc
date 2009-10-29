@@ -11,11 +11,11 @@ def config
     :dir   => {
       :entries => "#{root_path}/data_sample",
       :views   => "#{root_path}/views",
-      #:plugins => "#{root_path}/config/plugins",
-      :plugins => "#{root_path}/plugins",
+      :plugins => "#{root_path}/config/plugins",
     },
     :limit => 5,
-    :css   => '/stylesheets/bilbo.css',
+    # 複数のcssを使用する場合は配列で指定してください
+    :css   => 'stylesheets/bilbo.css',
   }
 end
 
@@ -40,7 +40,6 @@ def add_compilers
 end
 
 def setup_environment
-  $LOAD_PATH.unshift File.dirname(__FILE__) + '/lib'
-  load 'bilbo.rb' # todo: dev
+  require 'bilbo'
   add_compilers
 end

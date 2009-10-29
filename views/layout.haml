@@ -1,0 +1,19 @@
+!!! XML
+!!! Strict
+ 
+%html
+  = render_plugin_hook(:before_header)
+  %head
+    %title= @title || config[:title] 
+    %meta{ :'http-equiv' => 'Content-Type', :content => 'text/html', :charset => 'utf-8' }
+    %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/style.css' }
+    = render_plugin_hook(:header)
+  %body
+    .main
+      %h1= @title || config[:title] 
+      = render_plugin_hook(:flavour_header)
+      .content
+        .before_content= render_plugin_hook(:before_content)
+        != yield
+        .before_content= render_plugin_hook(:after_content)
+      = render_plugin_hook(:flavour_footer)
