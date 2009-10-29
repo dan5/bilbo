@@ -1,5 +1,6 @@
+= Bilbo
 
-setup
+== Setup
 
  gem install sinatra haml
 

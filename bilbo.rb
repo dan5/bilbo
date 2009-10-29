@@ -74,8 +74,6 @@ if __FILE__ == $0
   setup_environment
   load_plugins
 
-  puts :hello
-
   @entries = Entry.find('20')
   require 'pp'
   pp @entries.map(&:to_html)
