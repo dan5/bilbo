@@ -2,9 +2,6 @@
 BILBO_VERSION = '0.1.1'
 
 # Helper Part
-def chdir(key) Dir.chdir(config[:dir][key]) { yield }; end
-def load_plugins() Dir.glob("#{config[:dir][:plugins]}/*.rb").sort.each {|e| load e }; end
-
 def link_to(name, options = {})
   controller = options.delete(:controller)
   label = '#' + label if label = options.delete(:label)
@@ -13,6 +10,10 @@ def link_to(name, options = {})
 end
 
 # Plugin Part
+def load_plugins(dir)
+  Dir.glob("#{dir}/*.rb").sort.each {|e| load e }
+end
+
 $hook_procs ||= {}
 def add_plugin_hook(key, priority = 128, &block) # todo: priority
   $hook_procs[key] ||= []
@@ -30,7 +31,7 @@ class Entry
   attr_reader :filename, :header, :body
   def initialize(filename)
     @filename = Pathname.new(filename)
-    @header, @body = chdir(:entries) { @filename.read }.split(/^__$/, 2)
+    @header, @body = Dir.chdir(@@entries_dir) { @filename.read }.split(/^__$/, 2)
     @header, @body = nil, @header unless @body
   end
 
@@ -45,8 +46,8 @@ class Entry
   def self.find(pattern, options = {})
     pattern.gsub!(/[^\d\w_]/, '') # DON'T DELETE!!!
     pattern += '\.' if options[:complete_label]
-    limit = options[:limit] || 10
-    files = chdir(:entries) { Dir.glob("#{pattern}*") }.sort.reverse
+    limit = options[:limit] || 5
+    files = Dir.chdir(@@entries_dir) { Dir.glob("#{pattern}*") }.sort.reverse
     (files[limit * (options[:page] || 0), limit] || []).map {|e| Entry.new(e) }
   end
 
@@ -54,12 +55,17 @@ class Entry
   def self.add_compiler(extname = nil, &block)
     @@compilers.unshift [extname, block]
   end
+
+  @@entries_dir = nil
+  def self.entries_dir=(dir)
+    @@entries_dir = dir
+  end
 end
 
 if __FILE__ == $0
   load './bilborc'
   setup_environment
-  load_plugins
+  load_plugins config[:dir][:plugins]
 
   @entries = Entry.find('20')
   require 'pp'

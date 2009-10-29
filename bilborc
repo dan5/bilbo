@@ -42,4 +42,5 @@ end
 def setup_environment
   require 'bilbo'
   add_compilers
+  Entry.entries_dir = config[:dir][:entries]
 end

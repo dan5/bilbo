@@ -3,7 +3,7 @@ require 'sinatra'
 
 load './bilborc'
 setup_environment
-load_plugins
+load_plugins config[:dir][:plugins]
 
 get '/:date' do |date|
   @entries = Entry.find(date)
