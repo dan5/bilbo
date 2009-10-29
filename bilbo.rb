@@ -1,15 +1,9 @@
 # -*- encoding: UTF-8 -*-
-
-# helper.rb ----------------
-require 'pathname'
 BILBO_VERSION = '0.1.1'
+
+# Helper Part
 def chdir(key) Dir.chdir(config[:dir][key]) { yield }; end
 def load_plugins() Dir.glob("#{config[:dir][:plugins]}/*.rb").sort.each {|e| load e }; end
-#include Rack::Utils; alias_method :h, :escape_html
-
-#def root_path
-#  ENV['SCRIPT_NAME'] ? File.dirname(ENV['SCRIPT_NAME']) : ''
-#end
 
 def link_to(name, options = {})
   controller = options.delete(:controller)
@@ -18,37 +12,30 @@ def link_to(name, options = {})
   %Q!<a href="#{root_path}/#{controller}#{options.empty? ? '' : '?'}#{params}#{label}">#{name}</a>!
 end
 
+# Plugin Part
+$hook_procs ||= {}
 def add_plugin_hook(key, priority = 128, &block) # todo: priority
-  $hook_procs ||= {}
   $hook_procs[key] ||= []
   $hook_procs[key] << block
 end
 
 def render_plugin_hook(key)
-  (($hook_procs or {})[key] or []).map(&:call).join("\n")
+  ($hook_procs[key] or []).map(&:call).join("\n")
 end
 
-# model.rb ----------------
+# Model Part
+require 'pathname'
+
 class Entry
-  attr_reader :filename
+  attr_reader :filename, :header, :body
   def initialize(filename)
     @filename = Pathname.new(filename)
+    @header, @body = chdir(:entries) { @filename.read }.split(/^__$/, 2)
+    @header, @body = nil, @header unless @body
   end
 
   def label
     filename.basename('.*')
-  end
-
-  def read_data
-    @data_read ||= chdir(:entries) { filename.read }.split(/^__$/, 2)
-  end
-
-  def header
-    read_data[1] ? read_data[0] : nil
-  end
-
-  def body
-    read_data[1] or read_data[0]
   end
 
   def to_html
