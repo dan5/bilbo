@@ -43,4 +43,5 @@ def setup_environment
   require 'bilbo'
   add_compilers
   Entry.entries_dir = config[:dir][:entries]
+  Encoding.default_external = 'UTF-8'
 end
