@@ -1,9 +1,11 @@
 require 'rubygems'
 require 'sinatra'
 
-load './bilborc'
-setup_environment
-load_plugins config[:dir][:plugins]
+configure do
+  load './bilborc'
+  setup_environment
+  load_plugins config[:dir][:plugins]
+end
 
 get '/:date' do |date|
   @entries = Entry.find(date)
