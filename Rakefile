@@ -15,6 +15,8 @@ end
 
 desc "Update `Backup_log' file."
 task :update => :log do
+  rm_rf 'test/boot'
+  sh "ruby setup.rb test/boot"
   sh "ruby test/test.rb > #{Backup_log}"
 end
 

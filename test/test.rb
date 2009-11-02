@@ -1,4 +1,4 @@
-load './bilborc'
+load 'test/boot/bilborc'
 setup_environment
 load_plugins config[:dir][:plugins]
 

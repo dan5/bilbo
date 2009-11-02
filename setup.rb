@@ -45,7 +45,7 @@ Dir.chdir(cgi_root) {
   }
   foo('bilborc') {|fname|
     rc = File.read(Bilbo_root + 'bilborc.default')
-    rc.gsub!('__BILBO_ROOT__', Bilbo_root)
+    rc.gsub!('__BILBO_ROOT__', Bilbo_root.to_s)
     File.open(fname, 'w') {|f| f.write(rc) }
   }
   foo('.htaccess') {|fname| FileUtils.cp(Bilbo_root + 'dot.htaccess', fname) }
