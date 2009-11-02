@@ -61,13 +61,3 @@ class Entry
     @@entries_dir = dir
   end
 end
-
-if __FILE__ == $0
-  load './bilborc'
-  setup_environment
-  load_plugins config[:dir][:plugins]
-
-  @entries = Entry.find('20')
-  require 'pp'
-  pp @entries.map(&:to_html)
-end
