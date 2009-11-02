@@ -1,0 +1,7 @@
+DirectoryIndex index.cgi
+
+RewriteEngine On
+RewriteBase /~dan/dev/bilbo
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*) index.cgi/$1 [L]
