@@ -700,7 +700,7 @@ class HikiDoc
     end
 
     def hyperlink_namedpage(uri, title)
-      %Q(<a href="?#{escape_html_param(uri)}">#{title}</a>)
+      %Q(<a href="#{escape_html_param(uri)}">#{title}</a>)
     end
 
     def wiki_name(name)

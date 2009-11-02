@@ -1,0 +1,21 @@
+= Bilbo
+
+== gem install
+
+ gem install rake sinatra haml
+
+== Setup CGI
+
+ ruby setup.rb ~/public_html/bilbo
+
+== WEBrick Server
+
+ ruby setup.rb boot
+ cd boot
+ ./server
+
+== Test for Developmet
+
+ rake update
+ (Source file rewriting...)
+ rake diff

@@ -1,6 +1,0 @@
-= Bilbo
-
-== Setup
-
- gem install rake sinatra haml
-
