@@ -5,8 +5,8 @@
   = render_plugin_hook(:before_header)
   %head
     %title= @title || config[:title] 
-    %meta{ :'http-equiv' => 'Content-Type', :content => 'text/html', :charset => 'utf-8' }
-    %link{ :rel => 'stylesheet', :type => 'text/css', :href => '/style.css' }
+    %meta{:'http-equiv' => 'Content-Type', :content => 'text/html', :charset => 'utf-8'}
+    %link(rel='stylesheet' type='text/css' href=@css)
     = render_plugin_hook(:header)
   %body
     .main

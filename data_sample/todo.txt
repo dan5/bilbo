@@ -2,4 +2,4 @@
 
 * test時にpluginが動作しない
 ** モデルをputsしているだけなのでviewが走っていない
-
+* laurierの画像修正

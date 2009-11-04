@@ -1,0 +1,180 @@
+
+body {
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+  font-size: 90%;
+  background-color: #eee;
+}
+
+div.main {
+  color: #333;
+  text-align: left;
+}
+
+div.header {
+  padding: 1px 1em;
+  margin-bottom: 30px;
+  border-bottom:solid 1px #bbb;
+  background-color: #fff;
+}
+
+div.header blockquote {
+  margin: 0em;
+  padding: 0em;
+  color: #444;
+  border: none;
+  background-color: #fff;
+  font-size: 85%;
+}
+
+div.header blockquote p,
+div.header div.menus {
+  margin: 0px;
+  padding: 0.6em 1em;
+}
+
+div.content {
+  margin: 0px 64px;
+  padding: 0.7em 1.5em;
+  border: solid 1px #bbb;
+  background-color: #fff;
+}
+
+h1 {
+  font-size: xx-large;
+}
+
+div.footer {
+  padding: 10px 60px;
+  font-size: small;
+  color: #888;
+  text-align: center;
+}
+
+div.entry {
+  margin: 2em 0;
+}
+
+div.before_entry,
+div.after_entry {
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  clear: both;
+}
+
+h2 {
+  margin: 0em 0em;
+  margin-bottom: 0.6em;
+  padding: 0;
+  border-bottom: 1px solid #7c89ea;
+  font-size: x-large;
+}
+
+h3 {
+  color: #063;
+}
+
+p {
+  line-height: 160%;
+}
+
+li {
+  line-height: 160%;
+}
+
+pre {
+  padding: 0.4em;
+  _padding: 0.4em;
+  _width: 100%;
+  overflow: auto;
+  background-color: #eee;
+  border:solid 1px #aaa;
+  font-size: 90%;
+  font-family: 'MS Gothic', monospace;
+}
+
+blockquote {
+  margin: 1em;
+  padding: 0.2em 0.5em;
+  border:solid 1px #c8c8c8;
+  background-color: #ffffc0;
+  color: #000;
+  font-size: 90%;
+}
+
+div.date {
+  font-weight: bold;
+  color: #666;
+}
+
+a { color: #04f; }
+a:visited { color: #08f; }
+  a:hover {
+  color: #fff;
+  background-color: #47d;
+}
+/* a { text-decoration: none; } */
+
+img { margin: 4px 3px; }
+a img {
+  margin: 4px 3px;
+  padding: 0px;
+  border: 1px solid #88f;
+  text-decoration: none;
+}
+a:hover img {
+  border: 1px solid #8af;
+  text-decoration: none;
+}
+
+/* for plugins */
+div.header div.menus {
+  text-align: right;
+}
+
+div.categories,
+div.calender {
+  margin: 1em 1em;
+  padding: 0.2em 0.2em;
+  border: 1px solid #88f;
+}
+
+div.comments {
+  text-align: left;
+}
+
+div.comments span.name {
+  font-weight: bold;
+}
+
+div.comments span.time a {
+  margin-left: 0.4em;
+  color: #888;
+  font-size: 85%;
+  text-decoration: none;
+}
+
+div.comments p {
+  margin: 0px;
+  padding: 0.4em 1em;
+  font-size: 90%;
+}
+
+div.amazon {
+  margin: 0.4em;
+  float: right;
+}
+
+/*
+ * for printer
+ * */
+@media print {
+  div.main {
+    width: 100%;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+  }
+}

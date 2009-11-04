@@ -1,0 +1,160 @@
+@charset "utf-8";
+
+html,
+body,
+h1,h2,h3,p,li,dl,dt,dd {
+	margin: 0;
+	padding: 0;
+	}
+
+body {
+/*	background: #000 url(images/bg.png) repeat-x 0 0;*/
+	background: url(images/bg-header001.jpg) no-repeat center top;
+	text-align: center;
+	font-size: small;
+	font-family: sans-serif;
+	}
+
+
+/* ============================================ */
+/* Header -------------------- */
+.main {
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 30px;
+	text-align: left;
+	}
+
+h1 {
+	height: 135px;
+	_height: 217px;
+	padding-top: 90px;
+	color: #111;
+	font-size: 150%;
+	text-align: center;
+	}
+
+.header-menus {
+	height: 115px;
+	margin-top: 4px;
+	margin-bottom: 20px;
+	color: #fff;
+	text-align: right;
+	}
+	.header-menus a {
+		margin-right: 15px;
+		padding-left: 15px;
+		background: url(images/ico-arw.png) no-repeat left bottom;
+		}
+
+
+/* Entry -------------------- */
+.entry {
+	padding: 0 0px 20px 0;
+	padding-bottom: 50px;
+	background: #fff;
+	line-height: 170%;
+	}
+
+	.before_entry {
+		text-align: right;
+		}
+	
+	.after_entry {
+		text-align: right;
+		}
+
+	h2 {
+		height: 50px;
+		margin-bottom: 20px;
+		padding-top: 15px;
+		padding-bottom: 5px;
+		padding-left: 30px;
+		background: url(images/bg-ent-title.png) no-repeat center top;
+		color: #111;
+		font-size: 130%;
+		}
+
+.entry div.body {
+}
+
+	blockquote {
+		border-left: 7px solid #555;
+		background-color: #ffe4e1;
+		}
+	
+	pre {
+		padding: 10px;
+		margin: 10px 50px;
+		border-left: 7px solid #555;
+		background-color: #ffe4e1;
+		}
+	
+	p {
+		margin-left: 40px;
+		margin-right: 40px;
+		}
+
+	ol li {
+		list-style-position:inside;
+		}
+
+	th {
+		text-align: center;
+		color: #fff;
+		background-color: #333;
+		}
+
+	td {
+		background-color: #ddd;
+		}
+
+	dd,li {
+		margin-left: 40px;
+		}
+
+	dl {
+		margin: 5px 30px 20px 50px;
+		}
+
+	.entry h3 {
+		margin-right: 20px;
+		margin-left: 20px;
+		padding-left: 10px;
+		border: 1px dotted #555;
+		border-left: 7px solid #555;
+		background-color: #EFEFEF;
+		}
+	.entry dt {
+		padding-left: 15px;
+		background: url(images/ico-sqa.png) no-repeat left center;
+		}
+	.entry dd {
+		padding-left: 15px;
+		background: url(images/ico-arw10px.png) no-repeat left center;
+		}
+
+/* Archive -------------------- */
+.archives h3 {
+	margin-left: 20px;
+	}
+.archives ul {
+	margin-top: 10px;
+	margin-bottom: 30px;
+	}
+.archives li {
+	list-style: none;
+	margin-left: 20px;
+	margin-bottom: 5px;
+	padding-left: 15px;
+	background: url(images/ico-arw.png) no-repeat left center;
+	}
+
+/* Footer -------------------- */
+.footer {
+	padding-top: 20px;
+	padding-bottom: 40px;
+	background: #fff;
+	text-align: center;
+	}

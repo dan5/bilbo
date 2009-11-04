@@ -70,6 +70,6 @@ Dir.chdir(cgi_root) {
       FileUtils.symlink(Bilbo_root + "plugins/#{e}.rb", src)
     }
   }
-  #foo('stylesheets') {|dir| FileUtils.symlink(Bilbo_root + dir, dir) }
+  foo('stylesheets') {|dir| FileUtils.symlink(Bilbo_root + dir, dir) }
   #foo('favicon.ico') {|fname| FileUtils.cp(Bilbo_root + 'misc/favicon.ico', fname) }
 }

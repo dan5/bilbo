@@ -16,6 +16,7 @@ def config
     :limit => 5,
     # 複数のcssを使用する場合は配列で指定してください
     :css   => 'stylesheets/bilbo.css',
+    #:css   => 'stylesheets/nobunaga/nobunaga.css',
     #:environment => :production,
   }
 end

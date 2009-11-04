@@ -7,6 +7,10 @@ configure do
   load_plugins config[:dir][:plugins]
 end
 
+before do
+  @css = config[:css]
+end
+
 get '/:date' do |date|
   @entries = Entry.find(date)
   haml :list
