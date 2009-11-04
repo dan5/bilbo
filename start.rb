@@ -1,4 +1,4 @@
-require 'rubygems'
+require 'rubygems' # for 1.8
 require 'sinatra'
 
 configure do

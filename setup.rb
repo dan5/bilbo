@@ -49,27 +49,27 @@ Dir.chdir(cgi_root) {
     File.open(fname, 'w') {|f| f.write(rc) }
   }
   foo('.htaccess') {|fname| FileUtils.cp(Bilbo_root + 'dot.htaccess', fname) }
-=begin
-  foo('favicon.ico') {|fname| FileUtils.cp(Bilbo_root + 'misc/favicon.ico', fname) }
-  foo('stylesheets') {|dir| FileUtils.symlink(Bilbo_root + dir, dir) }
   foo('config') {|dir| Dir.mkdir dir }
-  foo('config/flavour.html.erb') {|fname| FileUtils.cp(Bilbo_root + fname, fname) }
   foo('config/plugins') {|dir| Dir.mkdir dir }
-
-  %w(flavour
+  #foo('config/flavour.html.erb') {|fname| FileUtils.cp(Bilbo_root + fname, fname) }
+  #%w(flavour
+  #   showdate
+  #   archives
+  #   bilborss
+  #   namedpage
+  #   category
+  #   permalink
+  #   comment
+  #   calender 
+  #   paginatelink
+  %w(
      showdate
-     archives
-     bilborss
-     namedpage
-     category
      permalink
-     comment
-     calender 
-     paginatelink
   ).each_with_index {|e, i|
     foo("config/plugins/%02d0_#{e}.rb" % (i)) {|src|
       FileUtils.symlink(Bilbo_root + "plugins/#{e}.rb", src)
     }
   }
-=end
+  #foo('stylesheets') {|dir| FileUtils.symlink(Bilbo_root + dir, dir) }
+  #foo('favicon.ico') {|fname| FileUtils.cp(Bilbo_root + 'misc/favicon.ico', fname) }
 }
