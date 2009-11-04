@@ -7,7 +7,7 @@ task :default => :diff
 
 desc "diff `Backup_log' <(ruby #{Test_script})"
 task :diff do
-  sh "ruby #{Test_script} > #{Test_log}"
+  run_test(Test_log)
   begin
     sh "diff #{Backup_log} #{Test_log}"
     puts :ok
@@ -17,9 +17,13 @@ end
 
 desc "Update `Backup_log' file."
 task :update => 'log' do
+  run_test(Backup_log)
+end
+
+def run_test(log_name)
   rm_rf 'test/boot'
   sh "ruby setup.rb test/boot"
-  sh "ruby #{Test_script} > #{Backup_log}"
+  sh "ruby #{Test_script} > #{log_name}"
 end
 
 directory 'log'

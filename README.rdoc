@@ -10,8 +10,7 @@
 
 == WEBrick Server
 
- ruby setup.rb boot
- cd boot
+ ruby setup.rb boot && cd boot
  ./server
 
 == Test for Developmet

@@ -1,7 +1,5 @@
 ! todo
 
-* pluginをひとつロードしてみる
-* rake導入
-* CGIで動くようにする
-* CGI設置スクリプト
+* test時にpluginが動作しない
+** モデルをputsしているだけなのでviewが走っていない
 
