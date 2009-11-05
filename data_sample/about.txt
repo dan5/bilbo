@@ -11,9 +11,9 @@ UNIXやシェルを知らない人には向いていません。
 
 !コンセプト
 
-# 小さな実装 → コアは100行を超えてはならない → [[blibo.rb|bilbo]]
+# 小さな実装 → コアは100行を超えてはならない → [[blibo.rb|http://github.com/dan5/bilbo/blob/master/bilbo.rb]]
 # シンプルな実装
-# プログラマに向けに特化した設定機構と拡張機能 → [[bliborc|bilborc]]
+# プログラマに向けに特化した設定機構と拡張機能 → [[bliborc|http://github.com/dan5/bilbo/blob/master/bilborc.default]]
 
 !特徴
 
@@ -30,7 +30,7 @@ UNIXやシェルを知らない人には向いていません。
 
 !ドキュメント
 
-* [[インストールと初期設定|?setup]]
+* [[インストールと初期設定|setup]]
 * ソースの構成
 * プラグイン
 * 起動プロセス → [[index.rb|index]]
