@@ -64,6 +64,7 @@ Dir.chdir(cgi_root) {
   #   paginatelink
   %w(flavour
      showdate
+     archives
      permalink
   ).each_with_index {|e, i|
     foo("config/plugins/%02d0_#{e}.rb" % (i)) {|src|

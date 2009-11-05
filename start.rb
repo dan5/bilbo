@@ -4,10 +4,11 @@ require 'sinatra'
 def setup
   load './bilborc'
   setup_environment
+  load_plugins config[:dir][:plugins]
 end
 
 configure :development do
-  @force_loading = true
+  $force_loading = true
 end
 
 configure do
@@ -15,8 +16,7 @@ configure do
 end
 
 before do
-  setup if @force_loading
-  load_plugins config[:dir][:plugins], @force_loading
+  setup if $force_loading
   @css = config[:css] # todo: move view
 end
 
