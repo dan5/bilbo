@@ -6,18 +6,18 @@ def setup
   setup_environment
 end
 
-configure do
-  setup
-end
-
 configure :development do
   @force_loading = true
+end
+
+configure do
+  setup
 end
 
 before do
   setup if @force_loading
   load_plugins config[:dir][:plugins], @force_loading
-  @css = config[:css] # todo: set this in view
+  @css = config[:css] # todo: move view
 end
 
 get '/:date' do |date|

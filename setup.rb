@@ -16,7 +16,6 @@ end
 
 def boot_script(f, run_flag)
   f.puts "#!#{Config::CONFIG['bindir']}/ruby"
-  f.puts "$LOAD_PATH.unshift '#{Bilbo_root}/lib'"
   f.puts "$LOAD_PATH.unshift '#{Bilbo_root}'"
   f.puts "require 'start.rb'"
   f.puts "set :run => #{run_flag}, :environment => config[:environment] || :development"
