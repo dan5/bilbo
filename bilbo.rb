@@ -14,11 +14,12 @@ def link_to(name, options = {})
 end
 
 # Plugin Part
-def load_plugins(dir)
-  Dir.glob("#{dir}/*.rb").sort.each {|e| load e }
+def load_plugins(dir, force = false)
+  return if $hook_procs && !force
+  $hook_procs = {}
+  Dir.glob("#{dir}/*.rb").sort.each {|e| eval(File.read(e)) }
 end
 
-$hook_procs = {}
 def add_plugin_hook(key, priority = 128, &block) # todo: priority
   $hook_procs[key] ||= []
   $hook_procs[key] << block

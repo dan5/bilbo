@@ -10,9 +10,9 @@
     = render_plugin_hook(:header)
   %body
     .main
-      = render_plugin_hook(:flavour_header, self)
+      = render_plugin_hook(:flavour_header)
       .content
         .before_content= render_plugin_hook(:before_content)
         != yield
         .before_content= render_plugin_hook(:after_content)
-      = render_plugin_hook(:flavour_footer, self)
+      = render_plugin_hook(:flavour_footer)

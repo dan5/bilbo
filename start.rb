@@ -4,16 +4,20 @@ require 'sinatra'
 def setup
   load './bilborc'
   setup_environment
-  load_plugins config[:dir][:plugins]
 end
 
 configure do
   setup
 end
 
+configure :development do
+  @force_loading = true
+end
+
 before do
-  setup # todo: Development only
-  @css = config[:css]
+  setup if @force_loading
+  load_plugins config[:dir][:plugins], @force_loading
+  @css = config[:css] # todo: set this in view
 end
 
 get '/:date' do |date|
