@@ -1,5 +1,9 @@
 = Bilbo
 
+Bilbo is a simple blog system.
+
+RubyとSinatraで書かれた超シンプルなブログシステムです。
+
 == gem install
 
  gem install rake sinatra haml
@@ -7,6 +11,8 @@
 == Setup CGI
 
  ruby setup.rb ~/public_html/bilbo
+
+ vim .htaccess
 
 == WEBrick Server
 
