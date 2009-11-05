@@ -10,16 +10,9 @@
     = render_plugin_hook(:header)
   %body
     .main
-      %h1= @title || config[:title] 
-      = render_plugin_hook(:flavour_header)
+      = render_plugin_hook(:flavour_header, self)
       .content
         .before_content= render_plugin_hook(:before_content)
         != yield
         .before_content= render_plugin_hook(:after_content)
-      = render_plugin_hook(:flavour_footer)
-  %footer
-    Bilbo
-    = BILBO_VERSION
-    on Ruby
-    = RUBY_VERSION
-</div>
+      = render_plugin_hook(:flavour_footer, self)

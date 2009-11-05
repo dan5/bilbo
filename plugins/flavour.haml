@@ -1,0 +1,23 @@
+.header
+  %h1= config[:title]
+  %blockquote
+    %p
+      - if params[:action] == :list or true
+        -# トップページ冒頭のメッセージ
+        このサイトはBilboという日記システムで運営されています。
+        Bilboについて、詳しくは<a href="?about">About</a>をご覧ください。
+        （このメッセージを書き換えるには<a href="?flavour">config/flavour.haml</a>
+        を編集してください。）
+      - else
+        %a{ :href => "/" } トップへ
+  .menus
+    = link_to :Latest, :controller => './'
+    = link_to :Archives, :controller => 'archives'
+    = link_to :About, :controller => 'about'
+__CONTENT__  # DON'T DELETE!
+.footer
+  %a{ :href => "http://dgames.jp/bilbo/" } Bilbo
+  &= BILBO_VERSION
+  on
+  %a{ :href => "http://www.ruby-lang.org/" } Ruby
+  &= RUBY_VERSION

@@ -40,6 +40,7 @@ Dir.chdir(cgi_root) {
   foo('server') {|fname|
     File.open(fname, 'w') {|f|
       boot_script f, true
+      f.puts 'set :port => 3333'
     }
     FileUtils.chmod(0755, 'server')
   }
@@ -51,7 +52,7 @@ Dir.chdir(cgi_root) {
   foo('.htaccess') {|fname| FileUtils.cp(Bilbo_root + 'dot.htaccess', fname) }
   foo('config') {|dir| Dir.mkdir dir }
   foo('config/plugins') {|dir| Dir.mkdir dir }
-  #foo('config/flavour.html.erb') {|fname| FileUtils.cp(Bilbo_root + fname, fname) }
+  foo('config/flavour.haml') {|fname| FileUtils.cp(Bilbo_root + 'plugins/' + File.basename(fname), fname) }
   #%w(flavour
   #   showdate
   #   archives
@@ -62,7 +63,7 @@ Dir.chdir(cgi_root) {
   #   comment
   #   calender 
   #   paginatelink
-  %w(
+  %w(flavour
      showdate
      permalink
   ).each_with_index {|e, i|

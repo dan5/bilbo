@@ -1,13 +1,18 @@
 require 'rubygems' # for 1.8
 require 'sinatra'
 
-configure do
+def setup
   load './bilborc'
   setup_environment
   load_plugins config[:dir][:plugins]
 end
 
+configure do
+  setup
+end
+
 before do
+  setup # todo: Development only
   @css = config[:css]
 end
 

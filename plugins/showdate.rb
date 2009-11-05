@@ -9,7 +9,7 @@ class Entry
   end
 
   def update_at
-    chdir(:entries) { File.mtime(filename) }
+    Dir.chdir(@@entries_dir) { File.mtime(filename) }
   end
 end
 
