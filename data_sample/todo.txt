@@ -1,5 +1,12 @@
 ! todo
 
+* cssへのリンクパスがうまく解決できていない
+** SinatBBSでは/style.cssへ直リン
+* setup後.htaccessのRewriteBase値を手動で書き換えなければならない問題
+** 解決策は浮かばない
+** せめて初期値を書き換えを明示する値にしておくべき
+* ヘッダ内でのrssのリンクがサブディレクトリ（/permalink/todoとか）からだと切れる
+* rssプラグインのurlを求める処理がいい加減
 * test時にpluginが動作しない
 ** モデルをputsしているだけなのでviewが走っていない
 * laurierの画像修正
