@@ -64,6 +64,7 @@ Dir.chdir(cgi_root) {
   #   paginatelink
   %w(flavour
      showdate
+     bilborss
      archives
      permalink
   ).each_with_index {|e, i|
