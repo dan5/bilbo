@@ -42,8 +42,12 @@ def add_compilers
 end
 
 def setup_environment
+  if defined? Encoding
+    Encoding.default_external = 'UTF-8' # 1.9
+  else
+    $KCODE = 'UTF-8' # 1.8
+  end
   load 'bilbo.rb'
   add_compilers
   Entry.entries_dir = config[:dir][:entries]
-  Encoding.default_external = 'UTF-8' if defined? Encoding
 end

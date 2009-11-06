@@ -43,7 +43,7 @@ def generate_rss(entries, options = {})
     maker.channel.about = options[:about] || "abaout"
     maker.channel.title = options[:title] || config[:title]
     maker.channel.description = options[:description] || config[:description] || 'Please set config[:description] in bilborc'
-  end.to_s + request.inspect
+  end.to_s
 end
 
 get '/rss' do
