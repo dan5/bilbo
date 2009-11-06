@@ -17,7 +17,6 @@ end
 
 before do
   setup if $force_loading
-  @css = config[:css] # todo: move view
 end
 
 get '/:date' do |date|
