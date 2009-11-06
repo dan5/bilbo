@@ -1,12 +1,19 @@
 # -*- encoding: UTF-8 -*-
 load 'plugins/helper.rb'
 
-get '/archives/:date' do
-  date = params[:date] || '20'
-  @entries = Entry.find(date, :limit => (params[:limit] || 200).to_i,
-                              :page => (params[:page] || 0).to_i)
+def archives(date, options = {})
+  @entries = Entry.find(date, :limit => (options[:limit] || 200).to_i,
+                              :page => (options[:page] || 0).to_i)
   @title = "#{config[:title]}: archives"
   haml :archives
+end
+
+get '/archives/:date' do
+  archives(params[:date] || '20')
+end
+
+get '/archives' do
+  archives('20')
 end
 
 use_in_file_templates! 
