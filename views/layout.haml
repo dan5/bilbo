@@ -2,18 +2,18 @@
 !!! Strict
  
 %html
-  = render_plugin_hook(:before_header)
+  = render_plugin_hook(:before_header, self)
   %head
     %title= @title || config[:title] 
     %meta{:'http-equiv' => 'Content-Type', :content => 'text/html', :charset => 'utf-8'}
     - css = config[:css]
     %link(rel='stylesheet' type='text/css' href=css)
-    = render_plugin_hook(:header)
+    = render_plugin_hook(:header, self)
   %body
     .main
       = render_plugin_hook(:flavour_header, self)
       .content
-        .before_content= render_plugin_hook(:before_content)
+        .before_content= render_plugin_hook(:before_content, self)
         != yield
-        .before_content= render_plugin_hook(:after_content)
+        .before_content= render_plugin_hook(:after_content, self)
       = render_plugin_hook(:flavour_footer, self)
