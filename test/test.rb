@@ -1,4 +1,5 @@
 def get(*a); end
+def use_in_file_templates!; end
 
 load 'test/boot/bilborc'
 setup_environment
