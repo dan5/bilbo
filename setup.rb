@@ -39,7 +39,6 @@ Dir.chdir(cgi_root) {
   foo('server') {|fname|
     File.open(fname, 'w') {|f|
       boot_script f, true
-      f.puts 'set :port => 3333'
     }
     FileUtils.chmod(0755, 'server')
   }

@@ -7,16 +7,8 @@ def setup
   load_plugins config[:dir][:plugins]
 end
 
-configure :development do
-  $force_loading = true
-end
-
 configure do
   setup
-end
-
-before do
-  setup if $force_loading
 end
 
 get '/:date' do |date|
