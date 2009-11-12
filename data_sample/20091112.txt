@@ -1,0 +1,20 @@
+![開発ログ]Bilboをgithubにアップしました
+
+http://github.com/dan5/bilbo
+
+アップしたのはSinatra版です。
+Ruby1.9では標準でgemが使えるようになりましたし、
+cgi.rbからSinatraに移行しました。
+
+今はまだ[[plugin|http://github.com/dan5/bilbo/tree/master/plugins/]]も少なく非常に小さな構成となっています。
+本体（bilbo.rb, start.rb）のコードは合わせても89行です。
+
+ $ wc bilbo.rb start.rb
+       67     200    1833 bilbo.rb
+       22      38     295 start.rb
+       89     238    2128 total
+
+尚、DBを使っておらず、
+記事データはエントリ別にテキストファイルとして保存する形となっています。
+
+Bilboについてのより詳しい情報は[[about]]にあります。
