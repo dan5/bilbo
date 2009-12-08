@@ -1,0 +1,49 @@
+![開発ログ]旧URLを互換させる方法について悩み中
+
+過去に運用していたtDirayや旧BilboのURLは「?」を使ったパラメータ受け取りを利用したいた。
+新しいBilboは「?」を使わないのだが、「?」を使ったURLでもアクセスできるように互換性を保っておきたい。
+
+今のstart.rbではこんな感じだが、
+
+<<<
+get '*' do
+  @entries = Entry.find('20')
+  haml :list
+end
+>>>
+
+次のように直してみた。
+
+<<<
+# /?permalink&date=20070317 #=> permalink/20070317
+# /?date=20070317#p03       #=> /20070317#p03
+def redirect_to_new_path
+  if action = params.index(nil)
+    case action
+    when 'permalink'
+      redirect "#{action}/#{params[:date]}"
+    else
+      redirect action
+    end
+  else
+    if params[:date]
+      redirect "#{params[:date]}"
+    else
+      return false
+    end
+  end
+  return true
+end
+
+get '*' do
+  unless redirect_to_new_path
+    @entries = Entry.find('20')
+    haml :list
+  end
+end
+>>>
+
+これで一応うまくいくんだけど、これをプラグインに追い出す実装が思いつかない。
+getのマッチ条件に「?」が入れられるといいのだけど、これがどうやってもうまくいかない。
+
+せめてSinatraのgetで定義したアクションをキャンセルして、以降のアクションからマッチするものを再び探すというようなことが出来るといいんだけど……。
