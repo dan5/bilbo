@@ -8,22 +8,23 @@ def config
   {
     :title => 'The Bilbo Diary',
     :description => 'Please set config[:description] in bilborc',
-    :dir   => {
+    :dir => {
       :entries => '__BILBO_ROOT__/data_sample',
       :views   => '__BILBO_ROOT__/views',
       :plugins => "#{root_path}/config/plugins",
     },
     :limit => 5,
     # 複数のcssを使用する場合は配列で指定してください
-    :css   => '/stylesheets/bilbo.css',
-    #:css   => 'stylesheets/nobunaga/nobunaga.css',
+    # CGIで起動する場合はcssへのパスを環境に合わせてください
+    :css => '/stylesheets/bilbo.css',
+    #:css => '/stylesheets/nobunaga/nobunaga.css',
     #:environment => :production,
   }
 end
 
 # 記事のコンパイラを設定
 def add_compilers
-  # HikiDocを登録
+  # HikiDocを登録（拡張「.txt」に関連付ける）
   require 'misc/hikidoc.rb'
   Entry.add_compiler('.txt') {|entry|
     HikiDoc.to_html(entry.body, :level => 2)

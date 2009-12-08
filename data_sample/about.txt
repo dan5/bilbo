@@ -1,46 +1,154 @@
 !Bilboとは
 
 BilboはRubyとSinatraで実装された超シンプルなブログシステムです。
+動作サンプル（tood: ノブナガ）。
 
-プログラマにとって扱いやすいシステムを目指しています。
+プログラマにとって扱いやすいブログシステムを目指しています。
 プラグインを探したり、あれこれ調べて設定するよりは、自分でソース書いた方が早い！という人にお薦めです。
-UNIXやシェルを知らない人には向いていません。
+UNIXやシェルを知らない人には向いていません＞＜
 
 :CODE: http://github.com/dan5/bilbo
-:BLOG: http://dgames.jp/dan/
+:BLOG: http://dgames.jp/dan/ <= Bilboを使用しています!
 
-!コンセプト
+!なぜBilboを作っているか
 
-# 小さな実装 → コアは100行を超えてはならない → [[blibo.rb|http://github.com/dan5/bilbo/blob/master/bilbo.rb]]
-# シンプルな実装
-# プログラマに向けに特化した設定機構と拡張機能 → [[bliborc|http://github.com/dan5/bilbo/blob/master/bilborc.default]]
+ちょっとした機能追加を手軽にできるようにしたいんです。
+ブログをやってると細かいところをカスタマイズしたくなってきませんか？
 
-!特徴
+それを実現するために、小さく、単純で、実装の理解が容易なコアシステムを構築することを目標としています。
+どれだけシンプルに出来るかの戦いです。
+そして、どれだけうまいこと出来るかを楽しんでいます。
 
-* 設置が容易 → [[設置スクリプトによる一発セットアップ|setup]]
-* プラグインによる高い拡張性
-* Rubyの最新版1.9系もサポート
+ただしシンプルでありながらも拡張性は必須です。
+拡張はプラグインで行います。
+カテゴライズ、アーカイブ、パーマリンク、コメントやRSS配信といった基本機能もプラグインで実現しています。
+こういった基本機能さえも簡単に追加できる柔軟性を持たせています。
+
+!!コンセプト
+
+# 小さな実装 => コア（[[blibo.rb|http://github.com/dan5/bilbo/blob/master/bilbo.rb]]）は100行を超えてはならない
+# シンプルな実装 + プラグイン
+# プログラマに向けに特化した設定機構 => [[bliborc|http://github.com/dan5/bilbo/blob/master/bilborc.default]]
+
+!今のBilboについて
+
+* Ruby1.8.7、最新版1.9系をサポート
+* CGI起動とサーバー起動の両方が可能
 * デフォルトの記事フォーマットに[[HikiDoc記法|http://projects.netlab.jp/hikidoc/?TextFormattingRules.ja]]を採用
+* tDiaryからの記事のインポートに（ある程度）対応
 
-!標準のBilboにないもの
+日記の記事はテキストファイルに保存しています。
+1エントリにつき1ファイルです。
+おそらく容易にDB管理にできるかと思いますが、
+（今のところ）ファイルによる記事管理のしやすさゆえにこうなっています。
 
-* Webからの記事管理UI
-* トラックバック機能 → 将来的にはプラグインで
+!!今のBilboにないもの
+
+* Webからの記事管理UI => 将来的にはプラグインで実現したい
+* トラックバック機能
 * Windowsでの動作保障
-
-!ドキュメント
-
-* [[インストールと初期設定|setup]]
-* ソースの構成
-* プラグイン
-* 起動プロセス → [[index.rb|index]]
-* tDiaryからのインポート
 
 !開発について
 
-あとで書く。
+開発コミュニティ => [[#Bilbo|http://twitter.com/#search?q=%23Bilbo]]
 
-!記事のコンパイルルール
+開発仲間を募集しています。
+コンセプトに賛同いただいた上で、
+より良いコアを提案・実装してくれる方、プラグインを開発してくれる方を歓迎します。
+
+もちろん単にBilboを試してくれる方も大歓迎です。
+気軽に[[#Bilbo|http://twitter.com/#search?q=%23Bilbo]]へ書き込んでもらえるとうれしいです。
+
+最新版のコードは[[githubにあります|http://github.com/dan5/bilbo]]。
+新規プラグインは「plugin/testing」に配置していただけるとすぐに取り込むことができると思います。
+
+!ドキュメント
+
+!!インストールと初期設定
+
+githubから取得できます。
+
+ git clone git://github.com/dan5/bilbo.git
+
+あるいは [[http://github.com/dan5/bilbo]] からダウンロードしてください。
+
+!!!Webサーバーとして起動する場合
+
+SinatraベースなのでいきなりWebサーバーとして起動できます。
+
+ ruby setup.rb boot && cd boot
+ ./server
+
+必要に応じてbootディレクトリに作られるbilborcを編集してください。
+ポート設定はserverスクリプトに記述されています。
+
+!!!CGIとして設置する場合
+
+ ruby setup.rb ~/public_html/bilbo
+ 
+ cd ~/public_html/bilbo
+ vim .htaccess
+ vim bilborc
+
+setup.rbで生成されたbilborcを必要に応じて編集してください。
+特にcssへのパスをCGIを設置する環境に合わせて書き換える必要があります。
+上の例では「~/public_html/bilbo/stylesheets/bilbo.css」にcssが作成されます。
+
+.htaccessのRewriteBaseをCGIを設置するパスに合わせることが必須です。
+例えば次のようになります。
+
+ #http://dgames.jp/~dan/bilbo/ にindex.cgiを置く場合
+ DirectoryIndex index.cgi
+ 
+ RewriteEngine On
+ RewriteBase /~dan/bilbo
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteCond %{REQUEST_FILENAME} !-d
+ RewriteRule ^(.*) index.cgi/$1 [L]
+
+動作サンプルはさくらインターネットのCGIで動かしています。
+
+!!ソースの構成
+
+Bilboの動作に必要なソースについて解説します。
+
+* start.rb ... 初期化処理を行いアクションを実行するSinatraスクリプトです
+* bilbo.rb ... Bilbo本体です。ヘルパ、プラグインシステム、記事を管理するモデルが定義されています
+* bilborc ... 実行ディレクトリに置かれるユーザ設定ファイルです
+
+!!起動プロセス
+
+# 起動スクリプト（./server or index.cgi）がstart.rbをrequireする
+# start.rbにてsetupが実行される
+** 設定ファイル（bilborc）をload
+** bilborcに定義されているsetup_environmentが実行され、文字コード設定等の初期化処理
+** プラグインをload
+# start.rbで基本のアクションが設定される（start.rbはシンプルなSinatraスクリプト）
+
+!!プラグイン
+
+「実行ディレクトリ/config/plugins」以下に置かれているすべての.rbファイルが起動時にloadされます。
+プラグインはファイル名でsortされ、その順序でloadされます。
+
+※trap: seteup.rbは、「config/plugins」にプラグインファイル本体へのシンボリックリンクを作成することでプラグインを配置しています。
+
+!!tDiaryからのインポート
+
+準備中。
+
+URLの解決についてもあとで書く。
+
+!!記事のコンパイルとルール
+
+記事のコンパイル設定に関しては[[bliborc|http://github.com/dan5/bilbo/blob/master/bilborc.default]]を見てください。
+単純な仕組みなので、例を見ればやっていることがわかると思います。
+Entry.add_compilerメソッドは[[bilbo.rb|http://github.com/dan5/bilbo/blob/master/bilbo.rb]]で定義されています。
+
+以下独自にコンパイルする場合のルールです。
 
 # 日記のタイトルは<h2>〜</h2>とする
 # 日記のタイトル以外に<h2>は用いないこと
+
+!ライセンス
+
+MITです。
