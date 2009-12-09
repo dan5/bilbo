@@ -21,7 +21,7 @@ def list(date = '20')
   erb :list
 end
 
-before do
+before do # todo: 必要？
   add_plugin_hook(:before_entries) {
     paginate_link(@entries)
   }

@@ -1,4 +1,4 @@
-![開発ログ]hikidoc.rbをちょっと書き換えた
+![開発ログ][ruby]hikidoc.rbをちょっと書き換えた
 
  [[about]]
  WikiName

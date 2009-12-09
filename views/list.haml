@@ -1,4 +1,4 @@
-.before_entries= render_plugin_hook(:before_entries)
+.before_entries= render_plugin_hook(:before_entries, self)
 - @entries.each do |entry|
   - @entry = entry
   = haml(:entry, :layout => false)
