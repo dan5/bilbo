@@ -1,5 +1,5 @@
 # -*- encoding: UTF-8 -*-
-BILBO_VERSION = '0.1.1'
+BILBO_VERSION = '0.2.0'
 
 # Helper Part
 def _root_path # todo: name
