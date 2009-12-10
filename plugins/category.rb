@@ -53,11 +53,16 @@ get '/category/:category' do
   add_plugin_hook(:before_header) {
     "<head><title>#{config[:title]}: Categories: #{params[:category]}</title></head>"
   }
-  dir = config[:dir][:entries] + '/category/' + Rack::Utils.escape(params[:category])
+  dir = config[:dir][:entries]
+  dir += '/category/' + Rack::Utils.escape(params[:category]) if params[:category]
   chdir(dir) {
     @entries = Entry.find('20')
     haml :list
   }
+end
+
+get '/category' do
+  haml all_categories.map {|e| link_to_category(e) }.join(' ')
 end
 
 __END__
