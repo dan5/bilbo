@@ -1,34 +1,37 @@
 class Entry
   def categories
-    all_categories.select {|e| _orig_chdir { File.exist?("category/#{Rack::Utils.escape(e)}/#{filename}") } }
+    all_categories.select {|e| ch_datadir { File.exist?("category/#{Rack::Utils.escape(e)}/#{filename}") } }
   end
 
   alias :_orig_to_html :to_html # trap
   def to_html
     _orig_to_html.gsub(/<h2>(<[^>]*>\s*)*\[.+?<\/h2>/m) { $&.gsub(/\[.+?\]/, '') }
   end
+
+  def self.entries_dir
+    @@entries_dir
+  end
 end
 
 def chdir(dir)
-  tmp = config[:dir][:entries]
-  Entry.entries_dir = dir
+  tmp, Entry.entries_dir = Entry.entries_dir, dir
   ret = yield
   Entry.entries_dir = tmp
   ret
 end
 
-def _orig_chdir
+def ch_datadir
   Dir.chdir(config[:dir][:entries]) { yield }
 end
 
 def all_categories
-  _orig_chdir {
+  ch_datadir {
     File.exist?("category") ? Dir.chdir("category") { Dir.glob('*') }.map {|e| Rack::Utils.unescape(e) } : []
   }
 end
 
 def entries_size(category)
-  _orig_chdir { Dir.glob("category/#{Rack::Utils.escape(category)}/*").size } 
+  ch_datadir { Dir.glob("category/#{Rack::Utils.escape(category)}/*").size } 
 end
 
 def link_to_category(category)
