@@ -4,8 +4,8 @@ class Entry
   end
 
   alias :_orig_to_html :to_html # trap
-  def to_html
-    _orig_to_html.gsub(/<h2>(<[^>]*>\s*)*\[.+?<\/h2>/m) { $&.gsub(/\[.+?\]/, '') }
+  def to_html(b)
+    _orig_to_html(b).gsub(/<h2>(<[^>]*>\s*)*\[.+?<\/h2>/m) { $&.gsub(/\[.+?\]/, '') }
   end
 
   def self.entries_dir

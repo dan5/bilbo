@@ -2,15 +2,18 @@
 
 def links_2009
   require 'open-uri'
-  open('http://atnd.org/events/2351').read.scan(/【\d+日目】(<a href="[^">]+">[^>.]+<\/a>)/) * 5
+  open('http://atnd.org/events/2351').read.scan(/【\d+日目】(<a href="[^">]+">[^>]+<\/a>)/)
+rescue
+  [Rack::Utils.escape($!)]
+end
+
+def adventcalendar(layout = false)
+  @links = links_2009
+  haml :adventcalendar, :layout => layout
 end
 
 get '/adventcalendar/:year' do
-  add_plugin_hook(:before_header) {
-    "<head><title>#{config[:title]}: Ruby Advent Calendar jp: #{params[:year]}</title></head>"
-  }
-  @links = links_2009
-  haml :adventcalendar
+  adventcalendar(true)
 end
 
 use_in_file_templates!

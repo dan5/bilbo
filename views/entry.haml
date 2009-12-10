@@ -1,4 +1,4 @@
 .entry
   .before_entry= render_plugin_hook(:before_entry, @entry)
-  .body~ @entry.to_html
+  .body~ @entry.to_html(binding)
   .after_entry= render_plugin_hook(:after_entry, @entry)

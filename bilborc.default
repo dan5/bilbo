@@ -26,18 +26,22 @@ end
 def add_compilers
   # HikiDocを登録（拡張「.txt」に関連付ける）
   require 'misc/hikidoc.rb'
-  Entry.add_compiler('.txt') {|entry|
+  Entry.add_compiler('.txt') {|entry, b|
     HikiDoc.to_html(entry.body, :level => 2)
+    # 記事にpluginを埋め込むなら以下を使う
+    #   記事に書く例: {{amazon '4777512924'}}
+    # HikiDoc.to_html(entry.body, :level => 2).
+    #   gsub(/<(div|span) class=\"plugin\">\{\{(.+)\}\}<\/(div|span)>/) { eval($2, b) }
   }
 
   # mixiスタイルを登録
   require 'misc/mixistyle.rb'
-  Entry.add_compiler('.mixi') {|entry|
+  Entry.add_compiler('.mixi') {|entry, b|
     MixiStyle.to_html(entry.body)
   }
 
   # 拡張子「.src」のソースをそのまま表示する例
-  Entry.add_compiler('.src') {|entry|
+  Entry.add_compiler('.src') {|entry, b|
     "<h2>#{h entry.filename}</h2><pre>#{h entry.body}</pre>"
   }
 end
