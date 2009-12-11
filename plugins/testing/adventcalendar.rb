@@ -6,7 +6,7 @@ end
 
 def links_2009
   require 'open-uri'
-  (open('http://atnd.org/events/2351').read.scan(/【\d+日目】(<a href="[^">]+">[^>]+<\/a>)/))[0, 25]
+  (open('http://atnd.org/events/2351').read.scan(/【\d+日目】(<a href="[^">]+">[^>]+<\/a>)/) + [nil] * 25)[0, 25]
 rescue
   [Rack::Utils.escape($!)]
 end
@@ -38,9 +38,9 @@ AdventCalendarTemplate = %q!
       = @year
     %ul
       - @links.each_with_index do |link, i|
-        - day = "day#{i + 1}"
-        %li
-          %span
+        - style = link ? 'opened' : 'closed'
+        %li(class=style)
+          %span(class='day')
             = i + 1
           = link
 !
