@@ -43,8 +43,8 @@ class Entry
     filename.basename('.*')
   end
 
-  def to_html(b = binding)
-    (@@compilers.assoc(filename.extname) || @@compilers.last)[1].call(self, b) rescue Rack::Utils.escape_html($!)
+  def to_html
+    (@@compilers.assoc(filename.extname) || @@compilers.last)[1].call(self) rescue Rack::Utils.escape_html($!)
   end
 
   def self.find(pattern, options = {})
