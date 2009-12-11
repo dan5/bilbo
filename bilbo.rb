@@ -10,8 +10,7 @@ def link_to(name, options = {})
   controller = options.delete(:controller)
   label = '#' + label if label = options.delete(:label)
   params = options.keys.map {|e| "#{e}=#{options[e]}"}.join('&')
-  %Q!<a href="#{_root_path}/#{controller}#{options.empty? ? '' : '?'}#{params}#{label}">#{name}</a>!
-  #!!!
+  %Q!<a href="#{_root_path}/#{controller}#{options.empty? ? '' : '?'}#{params}#{label}">#{name}</a>! #!!
 end
 
 # Plugin Part
