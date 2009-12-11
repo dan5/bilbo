@@ -14,14 +14,16 @@ end
 def set_params(year)
   @year = year
   @links = links_2009
-  @css = 'http://dgames.jp/bilbo/stylesheets/adventcalendar.css' # todo:
+  @css = 'http://dgames.jp/bilbo/stylesheets/adventcalendar/adventcalendar.css' # todo:
 end
 
+# 記事に埋め込む場合
 def adventcalendar(year)
   set_params year
   Haml::Engine.new(AdventCalendarTemplate).render(binding)
 end
 
+# アクションとして実行する場合
 get '/adventcalendar/:year' do
   set_params params[:year]
   haml AdventCalendarTemplate
