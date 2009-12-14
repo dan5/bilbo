@@ -46,6 +46,7 @@ add_plugin_hook(:before_entries) {|c|
 
 add_plugin_hook(:after_entry) {|entry|
   a = entry.categories
+  a.map! {|e| e.force_encoding 'UTF-8' } if defined? Encoding
   a.empty? ? '' : %Q!<div class="category">category: #{ a.map {|e| link_to_category(e) }.join(' ') }</div>!
 }
 
