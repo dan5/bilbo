@@ -17,6 +17,8 @@ get '/:date' do |date|
 end
 
 get '*' do
-  @entries = Entry.find('20')
+  @entries = Entry.find('20',
+                        :limit => (params[:limit] || config[:limit] || 5).to_i,
+                        :page => (params[:page] || 0).to_i)
   haml :list
 end

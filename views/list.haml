@@ -1,5 +1,5 @@
-.before_entries= render_plugin_hook(:before_entries, self)
+.before_entries= render_plugin_hook(:before_entries, self, @entries)
 - @entries.each do |entry|
   - @entry = entry
   = haml(:entry, :layout => false)
-.after_entries= render_plugin_hook(:after_entries)
+.after_entries= render_plugin_hook(:after_entries, self, @entries)
