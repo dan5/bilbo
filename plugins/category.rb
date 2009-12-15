@@ -39,7 +39,7 @@ def link_to_category(category)
   link_to(s, :controller => "category/#{Rack::Utils.escape(category)}")
 end
 
-add_plugin_hook(:before_entries) {|c|
+add_plugin_hook(:before_entries) {|c, |
   a = all_categories.map {|e| link_to_category(e) }.join(' ')
   c.params[:category] ? %Q!<div class="categories"><p>#{ a }</p></div>! : ''
 }
