@@ -70,7 +70,7 @@ Bilboはたかだか数十行の実装ですが、まだまだ設計やコーデ
 
 RubyGemsが使える環境に加えて、SinatraとHamlが必要です。
 
- gem install sinatra haml
+ gem install sinatra haml sinatra_more
 
 Bilboはgithubから取得できます。
 

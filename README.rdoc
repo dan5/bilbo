@@ -6,7 +6,7 @@ RubyとSinatraで書かれた超シンプルなブログシステムです。
 
 == gem install
 
- gem install rake sinatra haml
+ gem install rake sinatra haml sinatra_more
 
 == Setup CGI
 

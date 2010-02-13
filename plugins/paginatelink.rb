@@ -1,4 +1,9 @@
 # -*- encoding: UTF-8 -*-
+def opts(options)
+  params = options.keys.map {|e| "#{e}=#{options[e]}"}.join('&')
+  "#{options.empty? ? '' : '?'}#{params}"
+end
+
 def paginate_link(c, entries)
   page  = c.params[:page].to_i
   limit = c.params[:limit].to_i
@@ -10,11 +15,11 @@ def paginate_link(c, entries)
   options[:date]  = c.params[:date] if c.params[:date]
   html = []
   if pre_entries.size > 0
-    html << %Q!<span class="paginate">#{ link_to "&lt;前の#{pre_entries.size}件", options }</span>!
+    html << %Q!<span class="paginate">#{ c.link_to "&lt;前の#{pre_entries.size}件", opts(options) }</span>!
   end
   if page > 0
     options[:page] = page - 1
-    html << %Q!<span class="paginate">#{ link_to "次の#{limit}件&gt;", options }</span>!
+    html << %Q!<span class="paginate">#{ c.link_to "次の#{limit}件&gt;", opts(options) }</span>!
   end
   html.join(' | ')
 end

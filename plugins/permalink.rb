@@ -1,7 +1,11 @@
 require 'plugins/helper.rb'
 
-add_plugin_hook(:after_entry) {|entry|
-  %Q!<span class="permalink">#{ link_to 'permalink', :controller => "permalink/#{entry.label}" }</span>!
+def permalink(c, name, label)
+  c.link_to name, "permalink/#{label}"
+end
+
+add_plugin_hook(:after_entry) {|entry, c|
+  %Q!<span class="permalink">#{permalink(c, 'permalink', entry.label)}</span>!
 }
 
 get '/permalink/:date' do

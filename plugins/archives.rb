@@ -1,6 +1,14 @@
 # -*- encoding: UTF-8 -*-
 load 'plugins/helper.rb'
 
+def _permalink(c, name, label)
+  if defined? :permalink
+    permalink(c, name, label)
+  else
+    c.link_to name, label
+  end
+end
+
 def archives(date, options = {})
   @entries = Entry.find(date, :limit => (options[:limit] || 200).to_i,
                               :page => (options[:page] || 0).to_i)
@@ -28,5 +36,5 @@ __END__
     %ul
     - @entries.each do |entry|
       %li
-        = link_to entry.date, :controller => entry.label
+        = _permalink self, entry.date, entry.label
         = entry.title

@@ -36,7 +36,7 @@ end
 
 def link_to_category(category)
   s = "#{category}(#{entries_size(category)})"
-  link_to(s, :controller => "category/#{Rack::Utils.escape(category)}")
+  link_to(s, "category/#{Rack::Utils.escape(category)}")
 end
 
 add_plugin_hook(:before_entries) {|c, |

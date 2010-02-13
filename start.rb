@@ -1,5 +1,7 @@
 require 'rubygems' # for 1.8
 require 'sinatra'
+require 'sinatra_more/markup_plugin'
+Sinatra::Base.register SinatraMore::MarkupPlugin
 
 def setup
   load './bilborc'
