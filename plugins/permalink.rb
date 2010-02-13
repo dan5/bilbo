@@ -1,7 +1,7 @@
 require 'plugins/helper.rb'
 
 def permalink(c, name, label)
-  c.link_to name, "permalink/#{label}"
+  c.link_to name, "#{_root_path}/permalink/#{label}"
 end
 
 add_plugin_hook(:after_entry) {|entry, c|

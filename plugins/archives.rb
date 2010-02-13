@@ -21,6 +21,7 @@ get '/archives/:date' do
 end
 
 get '/archives' do
+  session[:render_category_list] = true
   archives('20')
 end
 

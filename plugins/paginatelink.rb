@@ -1,25 +1,17 @@
 # -*- encoding: UTF-8 -*-
-def opts(options)
-  params = options.keys.map {|e| "#{e}=#{options[e]}"}.join('&')
-  "#{options.empty? ? '' : '?'}#{params}"
-end
-
 def paginate_link(c, entries)
   page  = c.params[:page].to_i
-  limit = c.params[:limit].to_i
-  limit = config[:limit] || 5 if limit <= 0
-  options = {}
-  options[:page]  = page + 1
-  options[:limit] = limit
-  pre_entries = Entry.find(options[:date] || '20', options)
-  options[:date]  = c.params[:date] if c.params[:date]
+  limit = config[:limit] || 5
+  pre_entries = Entry.find('20', :page => page + 1)
+  action = c.session[:action] || '/page'
   html = []
+  base = "#{_root_path}#{action}"
   if pre_entries.size > 0
-    html << %Q!<span class="paginate">#{ c.link_to "&lt;前の#{pre_entries.size}件", opts(options) }</span>!
+    html << %Q!<span class="paginate">#{ c.link_to "&lt;前の#{pre_entries.size}件", "#{base}/#{page + 1}" }</span>!
   end
   if page > 0
-    options[:page] = page - 1
-    html << %Q!<span class="paginate">#{ c.link_to "次の#{limit}件&gt;", opts(options) }</span>!
+    url = page == 1 ? base : "#{base}/#{page - 1}"
+    html << %Q!<span class="paginate">#{ c.link_to "次の#{limit}件&gt;", url }</span>!
   end
   html.join(' | ')
 end
@@ -31,3 +23,8 @@ add_plugin_hook(:before_entries) {|c, entries|
 add_plugin_hook(:after_entries) {|c, entries|
   paginate_link(c, entries)
 }
+
+get '/page/:page' do
+  @entries = Entry.find('20', :page => params[:page].to_i)
+  haml :list
+end

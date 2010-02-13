@@ -34,36 +34,45 @@ def entries_size(category)
   ch_datadir { Dir.glob("category/#{Rack::Utils.escape(category)}/*").size } 
 end
 
-def link_to_category(category)
+def link_to_category(c, category)
   s = "#{category}(#{entries_size(category)})"
-  link_to(s, "category/#{Rack::Utils.escape(category)}")
+  c.link_to(s, "#{_root_path}/category/#{Rack::Utils.escape(category)}")
 end
 
-add_plugin_hook(:before_entries) {|c, |
-  a = all_categories.map {|e| link_to_category(e) }.join(' ')
-  c.params[:category] ? %Q!<div class="categories"><p>#{ a }</p></div>! : ''
+add_plugin_hook(:before_content) {|c, |
+  a = all_categories.map {|e| link_to_category(c, e) }.join(' ')
+  (c.params[:category] || c.session[:render_category_list]) ? %Q!<div class="categories"><p>#{ a }</p></div>! : ''
 }
 
-add_plugin_hook(:after_entry) {|entry|
+add_plugin_hook(:after_entry) {|entry, c|
   a = entry.categories
   a.map! {|e| e.force_encoding 'UTF-8' } if defined? Encoding
-  a.empty? ? '' : %Q!<div class="category">category: #{ a.map {|e| link_to_category(e) }.join(' ') }</div>!
+  a.empty? ? '' : %Q!<div class="category">category: #{ a.map {|e| link_to_category(c, e) }.join(' ') }</div>!
 }
 
-get '/category/:category' do
+def render_category(page = 0)
+  session[:action] = "/category/#{params[:category]}"
   add_plugin_hook(:before_header) {
     "<head><title>#{config[:title]}: Categories: #{params[:category]}</title></head>"
   }
   dir = config[:dir][:entries]
   dir += '/category/' + Rack::Utils.escape(params[:category]) if params[:category]
   chdir(dir) {
-    @entries = Entry.find('20')
+    @entries = Entry.find('20', :page => page)
     haml :list
   }
 end
 
+get '/category/:category/:page' do
+  render_category(params[:page].to_i)
+end
+
+get '/category/:category' do
+  render_category
+end
+
 get '/category' do
-  haml all_categories.map {|e| link_to_category(e) }.join(' ')
+  haml all_categories.map {|e| link_to_category(self, e) }.join(' ')
 end
 
 __END__
