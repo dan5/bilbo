@@ -19,6 +19,7 @@ end
 
 # 記事に埋め込む場合
 def adventcalendar(year)
+  require 'haml'
   set_params year
   Haml::Engine.new(AdventCalendarTemplate).render(binding)
 end
