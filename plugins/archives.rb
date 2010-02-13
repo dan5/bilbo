@@ -35,7 +35,7 @@ __END__
   %div
     %h2 Entries
     %ul
-    - @entries.each do |entry|
-      %li
-        = _permalink self, entry.date, entry.label
-        = entry.title
+      - @entries.each do |entry|
+        %li
+          = _permalink self, entry.date, entry.label
+          = entry.title
