@@ -51,21 +51,15 @@ Dir.chdir(cgi_root) {
   foo('config') {|dir| Dir.mkdir dir }
   foo('config/plugins') {|dir| Dir.mkdir dir }
   foo('config/flavour.haml') {|fname| FileUtils.cp(Bilbo_root + 'plugins/' + File.basename(fname), fname) }
-  #%w(flavour
-  #   showdate
-  #   archives
-  #   bilborss
-  #   namedpage
-  #   category
-  #   permalink
   #   comment
   #   calender 
-  #   paginatelink
   %w(flavour
      showdate
      bilborss
      archives
+     category
      permalink
+     paginatelink
   ).each_with_index {|e, i|
     foo("config/plugins/%02d0_#{e}.rb" % (i)) {|src|
       FileUtils.symlink(Bilbo_root + "plugins/#{e}.rb", src)
