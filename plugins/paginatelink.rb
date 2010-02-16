@@ -10,18 +10,18 @@ def paginate_link(c, entries)
     html << %Q!<span class="paginate">#{ c.link_to "&lt;前の#{pre_entries.size}件", "#{base}/#{page + 1}" }</span>!
   end
   if page > 0
-    url = page == 1 ? base : "#{base}/#{page - 1}"
+    url = page == 1 ? _root_path + '/' : "#{base}/#{page - 1}"
     html << %Q!<span class="paginate">#{ c.link_to "次の#{limit}件&gt;", url }</span>!
   end
   html.join(' | ')
 end
 
 add_plugin_hook(:before_entries) {|c, entries|
-  paginate_link(c, entries)
+  paginate_link(c, entries) unless c.params[:date]
 }
 
 add_plugin_hook(:after_entries) {|c, entries|
-  paginate_link(c, entries)
+  paginate_link(c, entries) unless c.params[:date]
 }
 
 get '/page/:page' do
