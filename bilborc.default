@@ -30,8 +30,7 @@ def add_compilers
     HikiDoc.to_html(entry.body, :level => 2)
     # 記事にpluginを埋め込むなら以下を使う
     #   記事に書く例: {{amazon '4777512924'}}
-    # HikiDoc.to_html(entry.body, :level => 2).
-    #   gsub(/<(div|span) class=\"plugin\">\{\{(.+)\}\}<\/(div|span)>/) { eval($2) }
+    #eval_hiki_plugin(HikiDoc.to_html(entry.body, :level => 2))
   }
 
   # mixiスタイルを登録
