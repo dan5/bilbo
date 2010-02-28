@@ -22,8 +22,14 @@ def categoriz
   @entries = Entry.find('20', :limit => 99999)
   @entries.each do |entry|
     entry.category_title.scan(/\[([^\]]+)\]/).each do |e|
-      next if config[:categories] and !config[:categories].index(e.first)
-      dir = rootdir + Rack::Utils.escape(e.first)
+      name = if config[:categories]
+               idx = (config[:categories] or []).map(&:upcase).index(e.first.upcase)
+               next unless idx
+               config[:categories][idx]
+             else 
+               e
+             end
+      dir = rootdir + Rack::Utils.escape(name)
       Dir.chdir(datadir) {
         dir.mkdir unless dir.exist?
         Dir.chdir(dir) {
@@ -38,6 +44,8 @@ def categoriz
 end
 
 if __FILE__ == $0
+  def eval_hiki_plugin(html) html; end
+
   load ARGV.first # load bilborc
   setup_environment
   categoriz

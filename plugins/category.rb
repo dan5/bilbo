@@ -24,10 +24,14 @@ def ch_datadir
   Dir.chdir(config[:dir][:entries]) { yield }
 end
 
-def all_categories
+def _all_categories
   ch_datadir {
     File.exist?("category") ? Dir.chdir("category") { Dir.glob('*') }.map {|e| Rack::Utils.unescape(e) } : []
   }
+end
+
+def all_categories
+  config[:categories] or _all_categories
 end
 
 def entries_size(category)
