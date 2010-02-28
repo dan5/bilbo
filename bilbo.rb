@@ -1,4 +1,5 @@
 # -*- encoding: UTF-8 -*-
+require 'pathname'
 BILBO_VERSION = '0.2.0'
 
 # Helper Part
@@ -22,8 +23,6 @@ def render_plugin_hook(key, *args)
 end
 
 # Model Part
-require 'pathname'
-
 class Entry
   attr_reader :filename, :header, :body
   def initialize(filename)
