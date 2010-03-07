@@ -80,9 +80,11 @@ def tweet_html(c, tweet)
     <tr>
       <td><img src="#{tweet.user.profile_image_url}" /></td>
       <td>
-        <b>#{c.link_to c.h(tweet.user.screen_name), tweet_user_url(tweet)}</b>
-        #{tweet.text}<br />
-        <font size="-2">#{c.link_to c.h(tweet.created_at), tweet_status_url(tweet)}</font>
+        <div class="text">
+        <span class="name">#{c.link_to c.h(tweet.user.screen_name), tweet_user_url(tweet)}</span>
+        #{tweet.text}
+        </div>
+        <div class="time">#{c.link_to c.h(tweet.created_at), tweet_status_url(tweet)}<div>
       </td>
     </tr>
   HTML
@@ -90,18 +92,27 @@ end
 
 def comment_html(c, entry)
   tweet = ch_tweet_dir { file_read_tweet("diary_#{entry.label}.tweet") }
-  reply_to = "http://twitter.com/?status=@#{tweet.user.screen_name}&in_reply_to_status_id=#{tweet.id}&in_reply_to=#{tweet.user.screen_name}"
+  reply_to = "http://twitter.com/?status=@#{tweet.user.screen_name} &in_reply_to_status_id=#{tweet.id}&in_reply_to=#{tweet.user.screen_name}"
   html = replies_of_entry(entry.label).map {|e| tweet_html(c, e) }.join("\n")
   <<-HTML
-    <div align="left" class="twitter_comments">
-      #{c.link_to 'tweet', tweet_status_url(tweet)}
-      #{c.link_to 'reply', reply_to}
-      <h3>replies</h3>
-      <table>#{html}</table>
+    <div class="twitter_comments">
+      <h3>twitter replies</h3>
+      <div class="tweet_link">
+        #{c.link_to 'この日記のツイート', tweet_status_url(tweet)}
+        #{c.link_to 'twitterで返信', reply_to}
+      </div>
+      <div class="replies">
+        <table>#{html}</table>
+      </div>
     </div>
   HTML
 rescue
   'no tweet'
+end
+
+def comment_link(c, entry)
+  tweet = ch_tweet_dir { file_read_tweet("diary_#{entry.label}.tweet") }
+  "replies(#{replies_of_entry(entry.label).size})"
 end
 
 if __FILE__ == $0
@@ -112,6 +123,10 @@ if __FILE__ == $0
   webget_replies
 else
   add_plugin_hook(:after_entry) {|entry, c|
-    comment_html(c, entry) if c.env['PATH_INFO'] =~ /^\/permalink\//
+    if c.env['PATH_INFO'] =~ /^\/permalink\//
+      comment_html(c, entry)
+    else
+      comment_link(c, entry)
+    end
   }
 end

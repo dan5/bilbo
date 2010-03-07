@@ -141,25 +141,47 @@ div.calender {
   border: 1px solid #88f;
 }
 
-div.comments {
-  text-align: left;
+div.twitter_comments td {
+  vertical-align: top;
+  border-top: 1px solid #ccc;
+  line-height: 120%;
 }
 
-div.comments span.name {
+div.twitter_comments {
+  text-align: left;
+  margin: 8px 24px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+div.twitter_comments h3 {
+  margin: 0;
+  padding: 0;
+  color: #036;
+}
+
+div.twitter_comments div.tweet_link {
+  text-align: right;
+}
+
+div.twitter_comments img {
+  margin: 4px;
+  padding: 0;
+}
+
+div.twitter_comments div.text {
+  margin-top: 4px;
+  font-size: 90%;
+}
+
+div.twitter_comments .name {
   font-weight: bold;
 }
 
-div.comments span.time a {
-  margin-left: 0.4em;
+div.twitter_comments .time a {
   color: #888;
-  font-size: 85%;
+  font-size: 70%;
   text-decoration: none;
-}
-
-div.comments p {
-  margin: 0px;
-  padding: 0.4em 1em;
-  font-size: 90%;
 }
 
 div.amazon {
