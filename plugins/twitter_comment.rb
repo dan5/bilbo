@@ -113,6 +113,8 @@ end
 def comment_link(c, entry)
   tweet = ch_tweet_dir { file_read_tweet("diary_#{entry.label}.tweet") }
   "replies(#{replies_of_entry(entry.label).size})"
+rescue
+  'no tweet'
 end
 
 if __FILE__ == $0
