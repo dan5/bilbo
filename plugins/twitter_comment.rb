@@ -1,8 +1,19 @@
 # -*- encoding: UTF-8 -*-
 require 'rubygems'
 require 'twitter'
-require 'yaml'
 require 'fileutils'
+require 'yaml'
+
+# -- bilborc config sample --
+#  :twitter => {
+#    :username => 'name',
+#    :password => 'pass',
+#    :data_dir=> '__BILBO_ROOT__/data_sample/twitter_comment',
+#    :home_url => 'http://dgames.jp/dan/',
+#    :prefix => '[diary]',
+#    :permatweet_text => 'permatweet',
+#    :reply_text => 'reply',
+#  },
 
 def _twitter_base
   config[:twitter] or raise('not found config[:twitter]')
@@ -34,10 +45,10 @@ def create_tweet_file(fname, tweet)
   }
 end
 
-def webget_diary_tweets
+def webget_permatweets
   base = twitter_base
   timelines = base.user_timeline(:name => config[:twitter][:username], :count => 50)
-  timelines.select {|e| e.text.include?('[日記]') }.each do |tweet|
+  timelines.select {|e| e.text.include?(config[:twitter][:prefix]) }.each do |tweet|
     fname = "diary_#{label_of_entry(tweet)}.tweet"
     create_tweet_file(fname, tweet)
   end
@@ -102,8 +113,8 @@ def comment_html(c, entry)
     <div class="twitter_comments">
       <h3><a name="r"></a>twitter replies</h3>
       <div class="tweet_link">
-        #{c.link_to 'この日記のツイート', tweet_status_url(tweet)}
-        #{c.link_to 'twitterで返信する', tweet_reply_to_url(tweet)}
+        #{c.link_to config[:twitter][:permatweet_text], tweet_status_url(tweet)}
+        #{c.link_to config[:twitter][:reply_text], tweet_reply_to_url(tweet)}
       </div>
       <div class="replies">
         <table>#{html}</table>
@@ -120,7 +131,7 @@ def comment_link(c, entry)
   str = "replies(#{replies_of_entry(entry.label).size})"
   <<-HTML
     <div class="_twitter_comments">
-      <span>#{c.link_to 'twitterで返信する', tweet_reply_to_url(tweet)}</span>
+      <span>#{c.link_to config[:twitter][:reply_text], tweet_reply_to_url(tweet)}</span>
       <span class="link_to_comment">#{permalink(c, str, entry.label, '#r')}</span>
     </div>
   HTML
@@ -128,11 +139,24 @@ rescue
   'no tweet'
 end
 
+def post_permatweet
+  Entry.find('20', :limit => 10).reverse.each do |entry|
+    next if ch_tweet_dir { File.exist?("diary_#{entry.label}.tweet") }
+    title = entry.to_html[/^.+$/].gsub(/<\/?\w+[^>]*>/, '').sub(/^\[.+\]/, '')
+    message = "#{config[:twitter][:prefix]}#{title} #{config[:twitter][:home_url]}permalink/#{entry.label}"
+    puts "post: #{message}"
+    base = twitter_base
+    base.update message
+    break
+  end
+end
+
 if __FILE__ == $0
   load ARGV.first # load bilborc
   setup_environment
   FileUtils.mkdir_p config[:twitter][:data_dir]
-  webget_diary_tweets
+  post_permatweet
+  webget_permatweets
   webget_replies
 else
   add_plugin_hook(:after_entry) {|entry, c|
