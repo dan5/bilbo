@@ -3,7 +3,8 @@ require 'date'
 
 class Entry
   def date
-    Date.parse(label.to_s[/\A\d{8}/])
+    str = Date.parse(label.to_s[/\A\d{8}/])
+    defined?(permalink) ? permalink($sinatra_context, str, label) : str
   rescue TypeError
     update_at
   end
@@ -11,6 +12,10 @@ class Entry
   def update_at
     Dir.chdir(@@entries_dir) { File.mtime(filename) }
   end
+end
+
+before do
+  $sinatra_context = self
 end
 
 add_plugin_hook(:before_entry) {|entry|
