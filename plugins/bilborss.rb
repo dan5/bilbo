@@ -28,8 +28,12 @@ def base_url(request)
 end
 
 def generate_rss(entries, options = {})
-  base_path = request.script_name.sub(/\/?[^\/]*$/, '')
-  top = base_url(request) + base_path
+  top = if config[:base_url]
+          config[:base_url]
+        else
+          base_path = request.script_name.sub(/\/?[^\/]*$/, '')
+          base_url(request) + base_path
+        end
   RSS::Maker.make("1.0") do |maker|
     entries.each do |entry|
       item = maker.items.new_item

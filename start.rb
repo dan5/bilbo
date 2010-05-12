@@ -19,6 +19,7 @@ get '/:date' do |date|
 end
 
 get '*' do
+  return if redirect_to_new_path
   @entries = Entry.find('20',
                         :limit => (params[:limit] || config[:limit] || 5).to_i,
                         :page => (params[:page] || 0).to_i)

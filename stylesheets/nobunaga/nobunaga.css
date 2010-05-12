@@ -35,14 +35,14 @@ h1 {
 	text-align: center;
 	}
 
-.header-menus {
+.header .menus {
 	height: 115px;
 	margin-top: 4px;
 	margin-bottom: 20px;
 	color: #fff;
 	text-align: right;
 	}
-	.header-menus a {
+	.header .menus a {
 		margin-right: 15px;
 		padding-left: 15px;
 		background: url(images/ico-arw.png) no-repeat left bottom;

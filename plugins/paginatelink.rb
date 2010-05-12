@@ -2,7 +2,7 @@
 def paginate_link(c, entries)
   page  = c.params[:page].to_i
   limit = config[:limit] || 5
-  pre_entries = Entry.find('20', :page => page + 1)
+  pre_entries = Entry.find('20', :page => page + 1, :limit => limit)
   action = c.session[:action] || '/page'
   html = []
   base = "#{_root_path}#{action}"
@@ -25,6 +25,7 @@ add_plugin_hook(:after_entries) {|c, entries|
 }
 
 get '/page/:page' do
-  @entries = Entry.find('20', :page => params[:page].to_i)
+  limit = config[:limit] || 5
+  @entries = Entry.find('20', :page => params[:page].to_i, :limit => limit)
   haml :list
 end

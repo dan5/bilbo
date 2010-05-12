@@ -22,7 +22,7 @@ end
 
 get '/archives' do
   session[:render_category_list] = true
-  archives('20')
+  archives('20', :limit => 2000)
 end
 
 use_in_file_templates! 

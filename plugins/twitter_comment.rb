@@ -140,7 +140,7 @@ rescue
 end
 
 def post_permatweet
-  Entry.find('20', :limit => 10).reverse.each do |entry|
+  Entry.find('20', :limit => 5).reverse.each do |entry|
     next if ch_tweet_dir { File.exist?("diary_#{entry.label}.tweet") }
     title = entry.to_html[/^.+$/].gsub(/<\/?\w+[^>]*>/, '').sub(/^\[.+\]/, '')
     message = "#{config[:twitter][:prefix]}#{title} #{config[:twitter][:home_url]}permalink/#{entry.label}"
@@ -152,6 +152,8 @@ def post_permatweet
 end
 
 if __FILE__ == $0
+  require 'rack' 
+  def eval_hiki_plugin(a); a; end # todo:
   load ARGV.first # load bilborc
   setup_environment
   FileUtils.mkdir_p config[:twitter][:data_dir]

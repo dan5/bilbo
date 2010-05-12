@@ -6,6 +6,8 @@ end
 # 各種パラメータ設定
 def config
   {
+    # ブログのURLに書き換えてください
+    :base_url => 'http://dgames.jp/bilbo', # for bilborss
     :title => 'The Bilbo Diary',
     :description => 'Please set config[:description] in bilborc',
     :dir => {
@@ -43,6 +45,11 @@ def add_compilers
   Entry.add_compiler('.src') {|entry|
     "<h2>#{h entry.filename}</h2><pre>#{h entry.body}</pre>"
   }
+end
+
+
+def redirect_to_new_path
+  false
 end
 
 def setup_environment
