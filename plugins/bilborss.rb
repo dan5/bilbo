@@ -29,7 +29,7 @@ end
 
 def generate_rss(entries, options = {})
   top = if config[:base_url]
-          config[:base_url]
+          config[:base_url].sub(/\/\z/, '')
         else
           base_path = request.script_name.sub(/\/?[^\/]*$/, '')
           base_url(request) + base_path

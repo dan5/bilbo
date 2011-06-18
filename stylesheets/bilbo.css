@@ -184,6 +184,27 @@ div.twitter_comments .time a {
   text-decoration: none;
 }
 
+div.comments {
+  text-align: left;
+}
+
+div.comments span.name {
+  font-weight: bold;
+}
+
+div.comments span.time a {
+  margin-left: 0.4em;
+  color: #888;
+  font-size: 85%;
+  text-decoration: none;
+}
+
+div.comments p {
+  margin: 0px;
+  padding: 0.4em 1em;
+  font-size: 90%;
+}
+
 div.amazon {
   margin: 0.4em;
   float: right;

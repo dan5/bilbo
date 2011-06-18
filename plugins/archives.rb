@@ -25,7 +25,7 @@ get '/archives' do
   archives('20', :limit => 2000)
 end
 
-use_in_file_templates! 
+enable :inline_templates
 
 __END__
 

@@ -107,7 +107,6 @@ end
 
 def comment_html(c, entry)
   tweet = ch_tweet_dir { file_read_tweet("diary_#{entry.label}.tweet") }
-  reply_to = "http://twitter.com/?status=@#{tweet.user.screen_name} &in_reply_to_status_id=#{tweet.id}&in_reply_to=#{tweet.user.screen_name}"
   html = replies_of_entry(entry.label).map {|e| tweet_html(c, e) }.join("\n")
   <<-HTML
     <div class="twitter_comments">
@@ -127,7 +126,6 @@ end
 
 def comment_link(c, entry)
   tweet = ch_tweet_dir { file_read_tweet("diary_#{entry.label}.tweet") }
-  reply_to = "http://twitter.com/?status=@#{tweet.user.screen_name} &in_reply_to_status_id=#{tweet.id}&in_reply_to=#{tweet.user.screen_name}"
   str = "replies(#{replies_of_entry(entry.label).size})"
   <<-HTML
     <div class="_twitter_comments">
